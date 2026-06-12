@@ -1,0 +1,23 @@
+import socket
+
+SERVER_IP = "172.19.152.134"
+PORT = 12346
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+client.connect((SERVER_IP, PORT))
+
+while True:
+
+    message = input("Client: ")
+
+    client.send(message.encode())
+
+    if message.lower() == "bye":
+        break
+
+    reply = client.recv(1024).decode()
+
+    print("Server:", reply)
+
+client.close()
